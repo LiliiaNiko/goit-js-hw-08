@@ -9,17 +9,18 @@ const refs = {
 };
 
 refs.form.addEventListener('submit', onFormSubmit);
-refs.form.addEventListener('input', onFormInput);
-refs.textarea.addEventListener('input', throttle(onTextareaInput, 1000));
+refs.form.addEventListener('input', throttle(onFormInput, 500, {'trailing': false}));
+
 
 
 
 function onFormInput(evt) {
-    const formElements = evt.currentTarget.elements;
-    const email = formElements.email.value;
-    const message = formElements.message.value;
+    //const formElements = evt.currentTarget.elements;
+    const email = evt.currentTarget.elements.email.value;
+    const message = evt.currentTarget.elements.message.value;
     const formData = { email, message };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(formData)); 
+    //const throttled = throttle(onFormInput, 500);
 };
 
 function fillForm() {
@@ -53,6 +54,4 @@ function onFormSubmit(evt) {
    // localStorage.setItem(STORAGE_KEY, email);
 //}
 
-function onTextareaInput(evt) {
-  };
 
